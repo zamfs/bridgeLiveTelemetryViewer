@@ -1,10 +1,9 @@
-// bridge.js - Este é o arquivo que vai virar o ".exe" para o seu amigo
+// bridge.js - this is the .exe file
 
 const dgram = require('dgram');
 const { io } = require("socket.io-client");
 
-// 1. Conecta ao SEU servidor no Render via WebSocket
-// Usamos WebSocket direto em vez de HTTP POST, é mais rápido e dribla bloqueios
+// 1. Connects via WebSocket
 const serverUrl = "https://transmissorlivetelemetry.onrender.com";
 const socket = io(serverUrl);
 
@@ -16,7 +15,7 @@ socket.on("connect_error", (err) => {
     console.log(`❌ Erro ao conectar no Render: ${err.message}`);
 });
 
-// 2. Cria o servidor UDP local para ouvir o Assetto Corsa
+//2. Creates a local UDP server to listen AC
 const udpServer = dgram.createSocket('udp4');
 const UDP_PORT = 9996;
 
@@ -27,11 +26,10 @@ udpServer.on('error', (err) => {
 
 udpServer.on('message', (msg, rinfo) => {
     try {
-        // Recebe o JSON do Python (Assetto Corsa)
+        // Receive JSON
         const telemetryData = JSON.parse(msg.toString('utf-8'));
         
-        // Pega os dados e CHUTA para o Render usando o evento do Socket
-        // (O seu server.js no Render precisará escutar isso)
+        // sends to server
         socket.emit('telemetry_from_bridge', telemetryData);
         
     } catch (error) {
@@ -44,5 +42,5 @@ udpServer.on('listening', () => {
     console.log(`🏎️  Ponte UDP ouvindo o Assetto Corsa em ${address.address}:${address.port}`);
 });
 
-// Inicia a escuta UDP
+
 udpServer.bind(UDP_PORT, '127.0.0.1');
