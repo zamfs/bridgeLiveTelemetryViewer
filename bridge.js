@@ -6,6 +6,7 @@ const { io } = require("socket.io-client");
 
 // 1. Connects via WebSocket
 const serverUrl = "https://transmissorlivetelemetry.onrender.com";
+//const serverUrl = "http://localhost:3000"; //local tests
 
 const socket = io(serverUrl);
 

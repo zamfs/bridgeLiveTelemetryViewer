@@ -43,7 +43,7 @@ To run the source code directly, you will need:
 
 
 
-*(Note: If you are using the pre-compiled standalone version, no external installation is required. Download link coming soon for version 0.2)*
+*(Note: If you are using the pre-compiled standalone version, no external installation is required. Here is the link to install it: https://drive.google.com/file/d/11LF5qRnAHpx1zBoPVM4R3EmUdP0uBwBF/view)*
 
 ## Installation & Setup
 
